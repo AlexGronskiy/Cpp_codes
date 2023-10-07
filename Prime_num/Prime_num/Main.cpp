@@ -1,57 +1,40 @@
 #include <iostream>
-#include <clocale> // Библиотека для грамотного отображения разных языков в консоли(+ отображение даты/времени и тд.)
-#include <cmath>
+#include <clocale>
 
 using namespace std;
 
+// Функция для проверки, является ли число простым
+bool isPrime(int n) {
+    if (n <= 1) {
+        return false;
+    }
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 int main() {
     setlocale(LC_ALL, "Russian");
-    double num1, num2;
-    char operation;
-    double result;
+    int start_num, end_num;
 
-    cout << "Введите первое число: ";
-    cin >> num1;
+    cout << "Введите начальное значение диапазона: ";
+    cin >> start_num;
 
-    cout << "Введите операцию (+, -, *, /, ^): ";
-    cin >> operation;
+    cout << "Введите конечное значение диапазона: ";
+    cin >> end_num;
 
-    cout << "Введите второе число: ";
-    cin >> num2;
+    cout << "Простые числа в диапазоне от " << start_num << " до " << end_num << ":\n";
 
-    switch (operation) {
-    case '+':
-        result = num1 + num2;
-        break;
-//-----------------------------------------------------
-    case '-':
-        result = num1 - num2;
-        break;
-//-----------------------------------------------------
-    case '*':
-        result = num1 * num2;
-        break;
-//-----------------------------------------------------
-    case '/':
-        if (num2 != 0) {
-            result = num1 / num2;
+    for (int i = start_num; i <= end_num; i++) {
+        if (isPrime(i)) {
+            cout << i << " ";
         }
-        else {
-            cout << "Ошибка: деление на ноль!" << endl;
-            return 0; // Возвращаем код ошибки
-        }
-        break;
-//-----------------------------------------------------
-    case '^':
-        result = std::pow(num1, num2);
-        break;
-//-----------------------------------------------------
-    default:
-        cout << "Ошибка: неверная операция!" << endl;
-        return 0; // Возвращаем код ошибки
     }
 
-    cout << "Результат: " << result << endl;
+    cout << endl;
 
-    return 0; // Возвращаем нулевой код, чтобы указать успешное выполнение программы
+    return 0;
 }
